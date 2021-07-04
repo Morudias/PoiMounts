@@ -1,0 +1,41 @@
+name: PoiMounts
+main: me.critikull.mounts.MountsPlugin
+version: 1.0.0
+api-version: 1.16
+softdepend: [WorldGuard, WorldEdit, McMMO, FastAsyncWorldEdit]
+commands:
+  mounts:
+    usage: /mounts
+    description: Show player owned mounts
+  mountsreload:
+    usage: /mountsreload
+    description: Reload mounts plugin
+  mountgive:
+    usage: /mountgive [mount]
+    description: Give a player a mount
+    aliases: [mgive]
+  mount:
+    usage: /mount
+    description: Ride saved mount
+  mountset:
+    usage: /mountset
+    description: Set saved mount
+  mountdel:
+    usage: /mountdel
+    description: Delete a mount
+  mountbuy:
+    usage: /mountbuy <mount>
+    description: Buy a mount
+  mountbuycategory:
+    usage: /mountbuycategory
+    description: Buy mount from a category
+  mountsell:
+    usage: /mountsell <mount>
+    description: Sell a mount
+  mountdemo:
+    usage: /mountdemo
+    description: Set up demo version of config
+  mounttokengive:
+    usage: /mounttokengive <player> <type>
+    description: get token for mount
+
