@@ -2,7 +2,10 @@ package me.critikull.mounts.listeners;
 
 import me.critikull.mounts.MountsPlugin;
 import me.critikull.mounts.datastore.ConfigDataStore;
+import me.critikull.mounts.mount.Mount;
+import me.critikull.mounts.mount.Mounts;
 import me.critikull.mounts.mount.types.MountType;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -34,15 +37,21 @@ public class ListenerToken implements Listener {
         for(MountType type : new ConfigDataStore().loadMountTypes()) {
             if(meta.getPersistentDataContainer().get(MountsPlugin.TOKENIDKEY, PersistentDataType.STRING).equals(type.getId())) {
                 MountType foundMount = type;
-                //Check if they already own that mount
-                for(MountType ownedMount : MountsPlugin.getInstance().getMountManager().getMountTypes(player)) {
-                    if(ownedMount.getId().equals(foundMount.getId())) {
-                        player.sendMessage(ChatColor.RED + "You already have that mount");
+                for(Mount playerMounts : MountsPlugin.getInstance().getMountManager().getMounts(player)) {
+                }
+                for(Mount ownedMount : MountsPlugin.getInstance().getMountManager().getMounts(player)) {
+                    if(ownedMount.getType().getId().equals(foundMount.getId())) {
+                        player.sendMessage(ChatColor.RED + String.format("You already have a %s mount", ownedMount.getType().getId().replaceAll("_"," ")));
                         return;
                     }
                 }
+                if(player.getInventory().getItemInMainHand().getAmount() == 1) {
+                    player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+                } else {
+                    player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
+                }
                 MountsPlugin.getInstance().giveMount(player, foundMount);
-                player.sendMessage("You got the mount");
+                player.sendMessage(ChatColor.GREEN + String.format("You claimed the %s mount ", foundMount.getId().replaceAll("_", " ")));
             }
             else {
                 continue;

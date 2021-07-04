@@ -28,13 +28,13 @@ public class CommandGiveToken implements CommandExecutor {
         for(MountType loadedType : new ConfigDataStore().loadMountTypes()) {
             if(loadedType.getId().equals(args[1])) {
                 if(loadedType.getTokenItem() == null) {
-                    player.sendMessage("That mount doesn't have a token item");
+                    player.sendMessage(ChatColor.RED + "That mount doesn't have a token item");
                     return true;
                 }
                 ItemStack itemToken = loadedType.getTokenItem();
                 if(player.getInventory().firstEmpty() == -1) {
                     player.getLocation().getWorld().dropItemNaturally(player.getLocation(), itemToken);
-                    player.sendMessage(ChatColor.YELLOW + "Inventory full, dropping item.");
+                    player.sendMessage(ChatColor.YELLOW + "Inventory full, dropping item."); //TODO: This procs if one of the empty stacks is the item
                 } else {
                     player.getInventory().addItem(itemToken);
 

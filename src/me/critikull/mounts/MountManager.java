@@ -4,15 +4,16 @@ import me.critikull.mounts.mount.Mount;
 import me.critikull.mounts.mount.Mounts;
 import me.critikull.mounts.mount.types.MountType;
 import me.critikull.mounts.mount.types.MountTypes;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 public class MountManager {
-    private final Mounts mounts = new Mounts();
+    private Mounts mounts = new Mounts();
 
-    private final MountTypes mountTypes = new MountTypes();
+    private MountTypes mountTypes = new MountTypes();
 
     private final HashMap<UUID, Mount> presets = new HashMap<>();
 
@@ -52,6 +53,7 @@ public class MountManager {
     public MountTypes getMountTypes(Player player) {
         MountTypes playerMountTypes = new MountTypes();
         for (MountType mountType : this.mountTypes) {
+            Bukkit.getLogger().info(String.format("Type: %s, Owner: %s, UUID: %s", mountType.getId(), mountType));
             if (mountType.hasPermission(player))
                 playerMountTypes.add(mountType);
         }

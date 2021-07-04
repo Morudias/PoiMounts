@@ -22,6 +22,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.naming.Name;
+import java.util.logging.Level;
 
 public class MountsPlugin extends JavaPlugin {
 
@@ -118,8 +119,10 @@ public class MountsPlugin extends JavaPlugin {
         reloadConfig();
         getMountManager().removeAll();
         this.dataStore = (IDataStore)new ConfigDataStore();
-        for (MountType mountType : getDataStore().loadMountTypes())
+        for (MountType mountType : getDataStore().loadMountTypes()) {
+            getLogger().log(Level.INFO, String.format("Loading %s", mountType.getId()));
             getMountManager().addMountType(mountType);
+        }
         for (Mount mount : getDataStore().loadMounts())
             getMountManager().addMount(mount);
         ConfigPreset.load();

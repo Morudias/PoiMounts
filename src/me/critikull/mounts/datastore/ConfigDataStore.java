@@ -306,9 +306,7 @@ public class ConfigDataStore implements IDataStore {
             requirements.add(new RequirementLevel(minLevel));
         }
         ItemStack tokenItem = null;
-        if(!yamlConfiguration.contains("tokenItem")) {
-            tokenItem = loadTokenItem(id, (FileConfiguration) yamlConfiguration);
-        }
+        tokenItem = loadTokenItem(id, (FileConfiguration) yamlConfiguration);
         for (String advancementKey : yamlConfiguration.getStringList("requirements.advancements"))
             requirements.add(new RequirementAdvancement(advancementKey));
         Price priceBuy = loadPrice(id, (FileConfiguration)yamlConfiguration, "priceBuy");
