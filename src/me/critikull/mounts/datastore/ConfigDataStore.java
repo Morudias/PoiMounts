@@ -45,6 +45,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 
 public class ConfigDataStore implements IDataStore {
+
     private static Path getPlayersPath() {
         return Paths.get(MountsPlugin.getInstance().getDataFolder().getPath(), new String[] { "players" });
     }

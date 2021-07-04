@@ -16,15 +16,21 @@ import me.critikull.mounts.providers.RegionProvider;
 import me.critikull.mounts.utils.SoundUtil;
 import org.bukkit.NamespacedKey;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.naming.Name;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 
 public class MountsPlugin extends JavaPlugin {
+
+    public static List<MountType> ALL_MOUNTS = new ArrayList<>();
 
     public static NamespacedKey TOKENIDKEY;
 
@@ -65,6 +71,7 @@ public class MountsPlugin extends JavaPlugin {
         getServer().getPluginCommand("mountsell").setExecutor((CommandExecutor)new CommandSell());
         getServer().getPluginCommand("mountdemo").setExecutor((CommandExecutor)new CommandDemo());
         getServer().getPluginCommand("mounttokengive").setExecutor((CommandExecutor)new CommandGiveToken());
+        getServer().getPluginCommand("mounttokengive").setTabCompleter((TabCompleter)new CommandGiveToken());
     }
 
     public void onDisable() {
@@ -121,6 +128,7 @@ public class MountsPlugin extends JavaPlugin {
         this.dataStore = (IDataStore)new ConfigDataStore();
         for (MountType mountType : getDataStore().loadMountTypes()) {
             getLogger().log(Level.INFO, String.format("Loading %s", mountType.getId()));
+            MountsPlugin.ALL_MOUNTS.add(mountType);
             getMountManager().addMountType(mountType);
         }
         for (Mount mount : getDataStore().loadMounts())

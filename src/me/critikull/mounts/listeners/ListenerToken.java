@@ -41,7 +41,7 @@ public class ListenerToken implements Listener {
                 }
                 for(Mount ownedMount : MountsPlugin.getInstance().getMountManager().getMounts(player)) {
                     if(ownedMount.getType().getId().equals(foundMount.getId())) {
-                        player.sendMessage(ChatColor.RED + String.format("You already have a %s mount", ownedMount.getType().getId().replaceAll("_"," ")));
+                        player.sendMessage(ChatColor.RED + String.format("You already have a %s mount.", ownedMount.getType().getId().replaceAll("_"," ")));
                         return;
                     }
                 }
@@ -51,7 +51,7 @@ public class ListenerToken implements Listener {
                     player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount() - 1);
                 }
                 MountsPlugin.getInstance().giveMount(player, foundMount);
-                player.sendMessage(ChatColor.GREEN + String.format("You claimed the %s mount ", foundMount.getId().replaceAll("_", " ")));
+                player.sendMessage(ChatColor.GREEN + String.format("You claimed the %s mount.", foundMount.getId().replaceAll("_", " ")));
             }
             else {
                 continue;
